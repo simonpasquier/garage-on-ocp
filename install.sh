@@ -2,9 +2,9 @@
 
 set -euo pipefail
 
-PROJECT=${PROJECT:-garage}
+. env.sh
+
 HELM_COMMAND=${HELM_COMMAND:-install}
-BUCKET=${BUCKET:-test}
 
 echo "Checking presence of $PROJECT project..."
 if [ -z "$(oc get project "${PROJECT}" --ignore-not-found)" ]; then

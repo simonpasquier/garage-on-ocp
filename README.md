@@ -1,5 +1,7 @@
 Set of tools to install and manage [Garage](https://garagehq.deuxfleurs.fr/) on OpenShift Container Platform.
 
+## Garage
+
 To install Garage:
 
 ```shell
@@ -22,4 +24,12 @@ To upgrade an existing installation (default: `install`)
 
 ```shell
 HELM_COMMAND=upgrade ./install.sh
+```
+
+## Thanos
+
+To create a Kubernetes secret configuring Thanos to use the local Garage API:
+
+```shell
+./thanos.sh
 ```

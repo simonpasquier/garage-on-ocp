@@ -1,0 +1,4 @@
+[submodule "garage"]
+	path = garage
+	url = https://git.deuxfleurs.fr/Deuxfleurs/garage
+	branch = main-v1

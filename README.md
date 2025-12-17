@@ -8,22 +8,24 @@ To install Garage:
 ./install.sh
 ```
 
-To customize the project name (default: `garage`)
+To customize the project name (default: `garage`):
 
 ```shell
 PROJECT=my-project ./install.sh
 ```
 
-To customize the bucket name (default: `test`)
-
-```shell
-BUCKET=my-bucket ./install.sh
-```
-
-To upgrade an existing installation (default: `install`)
+To upgrade an existing installation (default: `install`):
 
 ```shell
 HELM_COMMAND=upgrade ./install.sh
+```
+
+## Creating a bucket
+
+To create a bucket:
+
+```shell
+BUCKET=my-bucket ./install.sh
 ```
 
 ## Thanos
@@ -31,5 +33,15 @@ HELM_COMMAND=upgrade ./install.sh
 To create a Kubernetes secret configuring Thanos to use the local Garage API:
 
 ```shell
+BUCKET=thanos ./bucket.sh
 ./thanos.sh
+```
+
+## Loki
+
+To create a Kubernetes secret configuring Loki to use the local Garage API:
+
+```shell
+BUCKET=loki ./bucket.sh
+./loki.sh
 ```

@@ -4,7 +4,7 @@ set -euo pipefail
 
 . env.sh
 
-BUCKET=${BUCKET:-thanos}
+BUCKET=${BUCKET:-loki}
 
 ACCESS_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$BUCKET-key" | grep -E '^Key ID:' | sed 's/Key ID: //g')
 if [ -z "$ACCESS_KEY" ]; then
@@ -18,18 +18,10 @@ if [ -z "$SECRET_KEY" ]; then
 	exit 1
 fi
 
-SECRET=$(cat <<EOF
-type: S3
-config:
-  bucket: $BUCKET
-  access_key: $ACCESS_KEY
-  secret_key: $SECRET_KEY
-  endpoint: garage.$PROJECT.svc:3900
-  insecure: true
-  trace:
-    enable: false
-EOF
-)
-
-oc create secret generic -n thanos-operator-system "$BUCKET-object-storage" --from-literal=thanos.yaml="$SECRET"
-echo "Secret thanos-operator-system/thanos-object-storage created..."
+oc create secret generic logging-loki-garage -n openshift-logging \
+	--from-literal=bucketnames="$BUCKET" \
+	--from-literal=endpoint="http://garage.$PROJECT.svc:3900" \
+	--from-literal=access_key_id="$ACCESS_KEY" \
+	--from-literal=access_key_secret="$SECRET_KEY" \
+	--from-literal=forcepathstyle="true"
+echo "Secret openshift-logging/logging-loki-garage created..."

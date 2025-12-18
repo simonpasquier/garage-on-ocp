@@ -2,3 +2,6 @@
 	path = garage
 	url = https://git.deuxfleurs.fr/Deuxfleurs/garage
 	branch = main-v1
+[submodule "thanos-operator"]
+	path = thanos-operator
+	url = https://github.com/thanos-community/thanos-operator

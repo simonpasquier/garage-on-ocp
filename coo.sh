@@ -16,25 +16,25 @@ BUCKET="${LOGS_BUCKET}" ./bucket.sh
 BUCKET="${TRACES_BUCKET}" ./bucket.sh
 
 info "Retrieving API keys..."
-LOGS_ACCESS_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$LOGS_BUCKET-key" | grep -E '^Key ID:' | sed 's/Key ID: //g')
+LOGS_ACCESS_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$LOGS_BUCKET-key" | grep -E '^Key ID:' | sed 's/Key ID: *//g' | tr -d '\r')
 if [ -z "$LOGS_ACCESS_KEY" ]; then
 	info "LOGS_ACCESS_KEY not defined!"
 	exit 1
 fi
 
-LOGS_SECRET_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$LOGS_BUCKET-key" | grep -E '^Secret key:' | sed 's/Secret key: //g' )
+LOGS_SECRET_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$LOGS_BUCKET-key" | grep -E '^Secret key:' | sed 's/Secret key: *//g' | tr -d '\r')
 if [ -z "$LOGS_SECRET_KEY" ]; then
 	info "LOGS_SECRET_KEY not defined!"
 	exit 1
 fi
 
-TRACES_ACCESS_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$TRACES_BUCKET-key" | grep -E '^Key ID:' | sed 's/Key ID: //g')
+TRACES_ACCESS_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$TRACES_BUCKET-key" | grep -E '^Key ID:' | sed 's/Key ID: *//g' | tr -d '\r')
 if [ -z "$TRACES_ACCESS_KEY" ]; then
 	info "TRACES_ACCESS_KEY not defined!"
 	exit 1
 fi
 
-TRACES_SECRET_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$TRACES_BUCKET-key" | grep -E '^Secret key:' | sed 's/Secret key: //g' )
+TRACES_SECRET_KEY=$(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage key info --show-secret "$TRACES_BUCKET-key" | grep -E '^Secret key:' | sed 's/Secret key: *//g' | tr -d '\r')
 if [ -z "$TRACES_SECRET_KEY" ]; then
 	info "TRACES_SECRET_KEY not defined!"
 	exit 1

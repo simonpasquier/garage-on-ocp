@@ -25,6 +25,8 @@ monitoring:
   metrics:
     enabled: true
 EOF
+info "Helm paramters:"
+cat "$VALUES_FILE"
 
 helm "$HELM_COMMAND" --namespace "${PROJECT}" garage ./garage/script/helm/garage -f "$VALUES_FILE"
 info "Waiting for pods to be ready..."

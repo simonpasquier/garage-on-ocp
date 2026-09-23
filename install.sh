@@ -41,5 +41,8 @@ for NODE in $(oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage status  |
 	oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage layout assign -z dc1 -c 1G "$NODE";
 done
 
+info "Showing staged layout..."
+oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage layout show
+
 info "Commiting layout changes..."
 oc exec -ti -n "$PROJECT" -c garage garage-0 -- ./garage layout apply --version 1

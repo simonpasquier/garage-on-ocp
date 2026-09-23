@@ -29,6 +29,9 @@ info "Helm paramters:"
 cat "$VALUES_FILE"
 
 helm "$HELM_COMMAND" --namespace "${PROJECT}" garage ./garage/script/helm/garage -f "$VALUES_FILE"
+info "Waiting a few seconds for the pods to start..."
+sleep 10
+
 info "Waiting for pods to be ready..."
 oc wait -n "$PROJECT" --for=condition=Ready pods -l app.kubernetes.io/name=garage --timeout=60s
 
